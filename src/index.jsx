@@ -7,6 +7,9 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import reduxPromise from 'redux-promise';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { createHistory as history } from 'history';
+
 
 // internal modules
 import App from './components/app';
@@ -21,7 +24,9 @@ const identityReducer = (state = null) => state;
 const initialState = {
   messages: [],
   channels: ['general', 'react', 'paris'],
-  currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+  // currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+  currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`,
+  //temporarily removed the prompt for during dev time.
   selectedChannel: 'general'
 };
 
@@ -39,7 +44,12 @@ const store = createStore(reducers, initialState, middlewares);
 // render an instance of the component in the DOM
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+		<Router history={history}>
+			<Switch>
+				<Route path ="/:channel" component={App} />
+				<Redirect from ="/" to="/general" />
+			</Switch>
+		</Router>
   </Provider>,
   document.getElementById('app')
 );

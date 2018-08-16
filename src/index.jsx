@@ -17,24 +17,25 @@ import '../assets/stylesheets/application.scss';
 
 // State and reducers
 import messagesReducer from './reducers/messages_reducer';
-import selectedChannelReducer from './reducers/selected_channel_reducer';
+// import selectedChannelReducer from './reducers/selected_channel_reducer';
 
 const identityReducer = (state = null) => state;
 
 const initialState = {
   messages: [],
-  channels: ['general', 'react', 'paris'],
+  channels: ['general', 'react', 'paris', 'copenhagen', 'nyc' ],
   // currentUser: prompt("What is your username?") || `anonymous${Math.floor(10 + (Math.random() * 90))}`,
   currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`,
   //temporarily removed the prompt for during dev time.
-  selectedChannel: 'general'
+  // selectedChannel: 'general'
 };
 
 const reducers = combineReducers({
   messages: messagesReducer,
   channels: identityReducer,
   currentUser: identityReducer,
-  selectedChannel: selectedChannelReducer
+  // selectedChannel: selectedChannelReducer
+  //the channel reducer is now in the router, so we will no longer need it.
 });
 
 // Middlewares
